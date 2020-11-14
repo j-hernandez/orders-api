@@ -21,6 +21,9 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 // request body has been url encoded
 
+// HTML Pages
+app.use(express.static('html')); // no match found? next()
+
 // Custom Middleware
 app.use((req, res, next) => {
     console.log(`Request received: ${req.method} ${req.path}`) 
@@ -102,6 +105,17 @@ app.get('/orders/:id', (req, res) => {
 app.get('/search', (req, res) => {
     const query = req.query.q;
     res.send(query);
+})
+
+app.get('/index.html', (req, res) => {
+    res.send('Here is the index');
+})
+
+app.get('/pixel.jpg', (req, res) => {
+    // track everything about this person first
+
+    // send back a generated jpeg response
+    res.send(fakeImage);
 })
 
 app.get('*', (req, res) => {
