@@ -2,7 +2,11 @@ const express = require('express');
 const app = express();
 const port = 3001;
 
+// Global variables for our prototype
+
+// Orders array for storing and manipulating orders
 let orders = [];
+// Used to assign unique ids to each order
 let primaryId = 1;
 
 // Middleware
@@ -15,9 +19,8 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 // request body has been url encoded
 
+// ROUTES 
 // Start matching 
-
-
 app.get('/orders', (req, res, next) => {
     if (!orders.length) {
         next();
@@ -71,16 +74,33 @@ app.get('/orders/:id', (req, res) => {
         return order.id === Number(id)
     });
 
+    const filter = req.body.filter || [];
+    if (filter.length) {
+        let newOrder = {};
+        filter.forEach((f) => {
+            // f is going to represent an item in the filter array
+            // setting newOrder.property = whatever the found property on the 
+            // order object
+            // example:
+            // f = customer_name 
+            // newOrder['customer_name'] = order['customer_name'];
+            newOrder[f] = order[f];
+        })
+        res.status(200).send(newOrder);
+    }
     res.status(200).send(order);
 });
 
-
+app.get('/search', (req, res) => {
+    const query = req.query.q;
+    res.send(query);
+})
 
 app.get('*', (req, res) => {
     res.status(404).send('Not found');
 })
 
-
 app.listen(port, () => {
     console.log('server started');
 })
+
