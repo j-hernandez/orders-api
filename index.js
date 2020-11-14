@@ -65,6 +65,15 @@ app.delete('/orders/:id', (req, res) => {
     res.status(200).send(orders);
 })
 
+app.get('/orders/:id', (req, res) => {
+    const id = req.params.id;
+    let order = orders.find((order) => {
+        return order.id === Number(id)
+    });
+
+    res.status(200).send(order);
+});
+
 
 
 app.get('*', (req, res) => {
