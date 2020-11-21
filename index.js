@@ -4,6 +4,7 @@ const port = 3001;
 
 // Importing our Order Routes
 const orderRoutes = require('./routes/orders');
+const customerRoutes = require('./routes/customers');
 
 // Middleware
 
@@ -27,6 +28,7 @@ app.use((req, res, next) => {
 
 // Routes - Orders
 app.use('/orders', orderRoutes);
+app.use('/customers', customerRoutes);
 
 app.get('*', (req, res) => {
     res.status(404).send('Not found');
