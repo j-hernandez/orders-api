@@ -8,6 +8,10 @@ const customerRoutes = require('./routes/customers');
 
 // Middleware
 
+app.set('view engine','ejs');
+// come back to this, try using public
+//app.set('views', 'views');
+
 // This is going to capture the request body (req.body), and 
 // run it through JSON.parse(), returning an object that will 
 // be available as req.body

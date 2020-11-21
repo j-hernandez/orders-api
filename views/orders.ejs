@@ -1,0 +1,12 @@
+<h1> Order List </h1>
+
+<ul>
+    <% orders.forEach(function(order) { %>
+        <li>
+            <strong><%= order.id %></strong>
+            <strong><%= order.customer_name %></strong>
+            <strong><%= order.food_name %></strong>
+            <strong><%= order.quantity %></strong>
+        </li>
+    <% }); %>
+</ul>
