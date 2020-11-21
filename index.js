@@ -102,6 +102,52 @@ app.get('/orders/:id', (req, res) => {
     res.status(200).send(order);
 });
 
+app.put('/orders/:id', (req, res) => {
+    const id = req.params.id;
+    // Find the index of the order with the given id
+    let orderIndex = orders.findIndex((order) => {
+        return order.id === Number(id)
+    });
+    // Update the orders array by targeting the order index
+    // set it equal to the request body
+    orders[orderIndex] = req.body;
+    // return the updated order
+    res.send(orders[orderIndex]);
+})
+
+app.patch('/orders/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    let orderIndex = orders.findIndex((o) => {
+        return o.id === id
+    });
+
+    // hard-coded expectations
+    // if (req.body.customer_name) {
+    //     orders[orderIndex].customer_name = req.body.customer_name;
+    // }
+    // if (req.body.quantity) {
+    //     orders[orderIndex].quantity = req.body.quantity;
+    // }
+    // if (req.body.food_name) {
+    //     orders[orderIndex].food_name = req.body.food_name;
+    // }
+    let requestObjectKeys = Object.keys(req.body);
+    console.log(requestObjectKeys);
+
+
+    // function applyChanges(req.body, order) {
+
+    // }
+
+    orders[orderIndex] = { // create an object
+        ...orders[orderIndex], // original order object, copied
+        ...req.body, // spread out the req.body on top, replacing existing values
+        quantity: 1000000, // just replace the quantity
+        newKey: 'new value'
+    }
+    res.send(orders[orderIndex]);
+})
+
 app.get('/search', (req, res) => {
     const query = req.query.q;
     res.send(query);
