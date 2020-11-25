@@ -52,6 +52,7 @@ exports.delete = (req, res) => {
 
 exports.findOne = (req, res) => {
     const id = req.params.id;
+    console.log(id);
     let order = orders.find((order) => {
         return order.id === Number(id)
     });
@@ -71,4 +72,15 @@ exports.findOne = (req, res) => {
         res.status(200).send(newOrder);
     }
     res.status(200).send(order);
+}
+
+
+
+exports.list = (req, res) => {
+
+    res.render('orders', {orders});
+};
+
+exports.new = (req, res) => {
+    res.render('create');
 }
